@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "watch": "NODE_ENV=development webpack --watch",
+    "start": "npm run watch & sam local start-api -p 3001 -t ./sam/dev/template.yaml --env-vars ./sam/dev/env.json"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -15,8 +18,11 @@
     "awesome-typescript-loader": "5.2.1",
     "aws-sdk": "2.351.0",
     "glob": "7.1.3",
+    "prettier": "1.15.1",
     "ts-node": "7.0.1",
     "tslint": "5.11.0",
+    "tslint-config-prettier": "1.15.0",
+    "tslint-plugin-prettier": "2.0.1",
     "typescript": "3.1.6",
     "webpack": "4.25.1",
     "webpack-cli": "3.1.2"

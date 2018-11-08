@@ -1,0 +1,23 @@
+{
+  "rulesDirectory": [
+    "tslint-plugin-prettier"
+  ],
+  "extends": [
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "prettier": [
+      true,
+      "./.prettierrc"
+    ],
+
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "never",
+        "singleline": "never",
+        "esSpecCompliant": true
+      }
+    ]
+  }
+}
