@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Resources:
   devPing:
-    Type: "AWS::Serverless::Function"
+    Type: 'AWS::Serverless::Function'
     Properties:
       Runtime: nodejs8.10
       CodeUri: ../../built/dev_main_get_ping
@@ -18,4 +18,21 @@ Resources:
           Properties:
             Path: /ping
             Method: get
-
+  # ex.) add new user
+  postUser:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Runtime: nodejs8.10
+      CodeUri: ../../built/dev_main_post_user
+      Handler: index.handler
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          LOCAL_URL: $LOCAL_URL
+          REGION: $REGION
+      Events:
+        Vote:
+          Type: Api
+          Properties:
+            Path: /user
+            Method: post
