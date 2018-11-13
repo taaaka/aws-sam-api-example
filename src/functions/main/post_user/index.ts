@@ -13,10 +13,13 @@ interface UserRequest {
 }
 
 const handler = (event: APIGatewayEvent, context: Context, callback: Callback) => {
-  const queryParam = event.queryStringParameters;
-  if (!queryParam.name || !queryParam.job) {
+  const param: UserRequest = JSON.parse(event.body);
+  if (!param.name || !param.job) {
     callback(null, {
       statusCode: 400,
+      headers: {
+        'Content-Type': 'text/plain'
+      },
       body: 'bad request!!'
     });
     return;
@@ -27,11 +30,6 @@ const handler = (event: APIGatewayEvent, context: Context, callback: Callback) =
     headers: {
       'Content-Type': 'text/html'
     },
-    // body: JSON.stringify({
-    //   status: 200,
-    //   message: 'OK!!!!!',
-    //   environment: process.env.NODE_ENV
-    // })
     body: `
       <html>
       <body>
