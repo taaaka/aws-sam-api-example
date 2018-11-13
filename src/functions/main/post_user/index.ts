@@ -18,26 +18,29 @@ const handler = (event: APIGatewayEvent, context: Context, callback: Callback) =
     callback(null, {
       statusCode: 400,
       headers: {
-        'Content-Type': 'text/plain'
+        'Content-Type': 'application/json'
       },
-      body: 'bad request!!'
+      body: JSON.stringify({
+        status: 400,
+        message: 'bad request!'
+      })
     });
     return;
   }
 
+  // TODO: db insert
+
   const result = {
     statusCode: 200,
     headers: {
-      'Content-Type': 'text/html'
+      'Content-Type': 'application/json'
     },
-    body: `
-      <html>
-      <body>
-        <h1>it works!</h1>
-      </body>
-      </html>
-    `
+    body: JSON.stringify({
+      status: 200,
+      message: 'user add succeeded!'
+    })
   };
+
   callback(null, result);
 };
 
