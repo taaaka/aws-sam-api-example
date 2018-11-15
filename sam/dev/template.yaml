@@ -19,11 +19,11 @@ Resources:
             Path: /ping
             Method: get
   # ex.) add new user
-  postUser:
+  getTodo:
     Type: 'AWS::Serverless::Function'
     Properties:
       Runtime: nodejs8.10
-      CodeUri: ../../built/dev_main_post_user
+      CodeUri: ../../built/dev_main_get_todo
       Handler: index.handler
       Policies: AmazonDynamoDBFullAccess
       Environment:
@@ -34,5 +34,5 @@ Resources:
         Vote:
           Type: Api
           Properties:
-            Path: /user
-            Method: post
+            Path: /todo
+            Method: get
