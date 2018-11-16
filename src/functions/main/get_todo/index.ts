@@ -3,24 +3,43 @@ import {APIGatewayEvent, Context, Callback} from 'aws-lambda';
 import localConfigure from '../../localConfigure';
 import {TodoItem, APIResponse} from '../../../types/todo_api';
 
+import * as AWS from 'aws-sdk';
+import {DocumentClient} from 'aws-sdk/lib/dynamodb/document_client';
+
 localConfigure();
 
-const handler = (event: APIGatewayEvent, context: Context, callback: Callback) => {
-  const queryParam = event.queryStringParameters;
+const TABLE_NAME = 'tbl_todo';
 
-  const items: TodoItem[] = [
-    {
-      id: '1',
-      title: 'Todo 01',
-      done: false
-    },
-    {
-      id: '2',
-      title: 'Todo 02',
-      done: false,
-      description: 'Todo item second'
+const getTodo = async (id: string): Promise<{[id: string]: any}> => {
+  const dynamoClient: DocumentClient = new AWS.DynamoDB.DocumentClient();
+
+  const param: DocumentClient.GetItemInput = {
+    TableName: TABLE_NAME,
+    Key: {
+      id
     }
-  ];
+  };
+
+  const record: DocumentClient.GetItemOutput = await dynamoClient.get(param).promise();
+  return record.Item;
+};
+
+const handler = async (event: APIGatewayEvent, context: Context, callback: Callback) => {
+  const todoId = event.pathParameters.id;
+
+  const todo = await getTodo(todoId);
+
+  const items: TodoItem[] = [];
+
+  if (todo) {
+    items.push({
+      id: todo.id,
+      title: todo.title,
+      description: todo.description,
+      done: todo.done === 1,
+      priority: todo.priority
+    });
+  }
 
   const result: APIResponse = {items};
 
