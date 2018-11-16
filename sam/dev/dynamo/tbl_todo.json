@@ -1,0 +1,63 @@
+{
+  "TableName": "tbl_todo",
+  "AttributeDefinitions": [{
+      "AttributeName": "id",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "done",
+      "AttributeType": "N"
+    },
+    {
+      "AttributeName": "priority",
+      "AttributeType": "N"
+    }
+  ],
+  "KeySchema": [{
+    "AttributeName": "id",
+    "KeyType": "HASH"
+  }],
+  "GlobalSecondaryIndexes": [{
+      "IndexName": "PriorityIndex",
+      "KeySchema": [{
+          "AttributeName": "id",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "priority",
+          "KeyType": "RANGE"
+        }
+      ],
+      "Projection": {
+        "ProjectionType": "ALL"
+      },
+      "ProvisionedThroughput": {
+        "WriteCapacityUnits": 1,
+        "ReadCapacityUnits": 1
+      }
+    },
+    {
+      "IndexName": "DoneIndex",
+      "KeySchema": [{
+          "AttributeName": "id",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "done",
+          "KeyType": "RANGE"
+        }
+      ],
+      "Projection": {
+        "ProjectionType": "ALL"
+      },
+      "ProvisionedThroughput": {
+        "WriteCapacityUnits": 1,
+        "ReadCapacityUnits": 1
+      }
+    }
+  ],
+  "ProvisionedThroughput": {
+    "WriteCapacityUnits": 1,
+    "ReadCapacityUnits": 1
+  }
+}

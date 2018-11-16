@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "setup": "sh ./sam/dev/dynamo/setup.sh",
     "watch": "NODE_ENV=development webpack --watch",
     "start": "npm run watch & sam local start-api -p 3001 -t ./sam/dev/template.yaml --env-vars ./sam/dev/env.json"
   },

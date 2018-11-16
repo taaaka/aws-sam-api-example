@@ -1,0 +1,42 @@
+{
+  "tbl_todo": [{
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "S": "todo0001"
+          },
+          "title": {
+            "S": "Todo No.1"
+          },
+          "description": {
+            "S": "Todo Item 01"
+          },
+          "done": {
+            "N": "1"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {
+            "S": "todo0002"
+          },
+          "title": {
+            "S": "Todo No.2"
+          },
+          "description": {
+            "S": "Todo Item 02"
+          },
+          "done": {
+            "N": "0"
+          },
+          "priority": {
+            "N": "3"
+          }
+        }
+      }
+    }
+  ]
+}
