@@ -1,7 +1,7 @@
 import {APIGatewayEvent, Context, Callback} from 'aws-lambda';
 
-import localConfigure from '../../localConfigure';
 import {TodoItem, APIResponse, StatusCode, ContentType} from '../../../types/todo_api';
+import localConfigure from '../../localConfigure';
 
 import {getTodo} from '../../../db/todo';
 
