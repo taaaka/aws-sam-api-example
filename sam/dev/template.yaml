@@ -39,3 +39,21 @@ Resources:
           Properties:
             Path: /todo/{id}
             Method: get
+
+ postTodo:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Runtime: nodejs8.10
+      CodeUri: ../../built/dev_main_post_todo
+      Handler: index.handler
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          LOCAL_URL: $LOCAL_URL
+          REGION: $REGION
+      Events:
+        Vote:
+          Type: Api
+          Properties:
+            Path: /todo
+            Method: post
