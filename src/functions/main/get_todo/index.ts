@@ -1,28 +1,11 @@
 import {APIGatewayEvent, Context, Callback} from 'aws-lambda';
 
 import localConfigure from '../../localConfigure';
-import {TodoItem, APIResponse} from '../../../types/todo_api';
+import {TodoItem, APIResponse, StatusCode, ContentType} from '../../../types/todo_api';
 
-import * as AWS from 'aws-sdk';
-import {DocumentClient} from 'aws-sdk/lib/dynamodb/document_client';
+import {getTodo} from '../../../db/todo';
 
 localConfigure();
-
-const TABLE_NAME = 'tbl_todo';
-
-const getTodo = async (id: string): Promise<{[id: string]: any}> => {
-  const dynamoClient: DocumentClient = new AWS.DynamoDB.DocumentClient();
-
-  const param: DocumentClient.GetItemInput = {
-    TableName: TABLE_NAME,
-    Key: {
-      id
-    }
-  };
-
-  const record: DocumentClient.GetItemOutput = await dynamoClient.get(param).promise();
-  return record.Item;
-};
 
 const handler = async (event: APIGatewayEvent, context: Context, callback: Callback) => {
   const todoId = event.pathParameters.id;
@@ -41,12 +24,12 @@ const handler = async (event: APIGatewayEvent, context: Context, callback: Callb
     });
   }
 
-  const result: APIResponse = {items};
+  const result: APIResponse<TodoItem> = {items};
 
   callback(null, {
-    statusCode: 200,
+    statusCode: StatusCode.OK,
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': ContentType.APPLICATION_JSON
     },
     body: JSON.stringify(result)
   });
