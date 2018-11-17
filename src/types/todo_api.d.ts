@@ -19,7 +19,7 @@ export namespace Tables {
     title: string;
     description?: string;
     done: number;
-    priority: TodoPriority;
+    priority?: TodoPriority;
   }
 }
 
