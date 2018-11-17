@@ -39,8 +39,7 @@ Resources:
           Properties:
             Path: /todo/{id}
             Method: get
-
- postTodo:
+  postTodo:
     Type: 'AWS::Serverless::Function'
     Properties:
       Runtime: nodejs8.10
