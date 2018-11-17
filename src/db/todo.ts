@@ -4,9 +4,9 @@ import {DocumentClient} from 'aws-sdk/lib/dynamodb/document_client';
 import {Tables} from '../types/todo_api';
 
 const TABLE_NAME = 'tbl_todo';
-const dynamoClient: DocumentClient = new AWS.DynamoDB.DocumentClient();
 
 export const getTodo = async (id: string): Promise<Tables.TodoRecord> => {
+  const dynamoClient: DocumentClient = new AWS.DynamoDB.DocumentClient();
   const param: DocumentClient.GetItemInput = {
     TableName: TABLE_NAME,
     Key: {id}
@@ -17,6 +17,7 @@ export const getTodo = async (id: string): Promise<Tables.TodoRecord> => {
 };
 
 export const insertTodo = async (record: Tables.TodoRecord): Promise<boolean> => {
+  const dynamoClient: DocumentClient = new AWS.DynamoDB.DocumentClient();
   const param: DocumentClient.PutItemInput = {
     TableName: TABLE_NAME,
     Item: record
