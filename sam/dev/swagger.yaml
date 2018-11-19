@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  description: "Todo API Using AWS SAM"
+  version: "1.0.0"
+  title: "Todo API"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "todo.sample.io"
+basePath: "/v1"
+tags:
+- name: "todo"
+  description: "Todo関連"
+- name: "ping"
+  description: "ping"
+schemes:
+- "https"
+paths:
+  /todo:
+    post:
+      tags:
+      - "todo"
+      summary: "Todoを取得する"
+      description: ""
+      operationId: "getTodo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Pet"
+      responses:
+      security:
+definitions:
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
