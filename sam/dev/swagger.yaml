@@ -69,6 +69,12 @@ paths:
                     type: boolean
                     description: "完了かどうか"
                     default: false
+    get:
+      tags:
+      - todo
+      summary: "Todoの取得"
+      description: "Todoを取得するAPIです"
+      operationId: "getTodo"
 
 externalDocs:
   description: "Find out more about Swagger"
