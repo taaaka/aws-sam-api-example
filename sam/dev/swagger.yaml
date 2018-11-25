@@ -69,13 +69,57 @@ paths:
                     type: boolean
                     description: "完了かどうか"
                     default: false
-  /todo/{id}:
+  '/todo/{id}':
     get:
       tags:
       - todo
       summary: "Todoの取得"
       description: "Todoを取得するAPIです"
       operationId: "getTodo"
+      parameters: 
+      - in: path
+        name: id
+        description: "TodoのID"
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+            description: 'Response'
+            content:
+              'application/json':
+                schema:
+                  type: object
+                  required:
+                  - items
+                  properties:
+                    items:
+                      type: array
+                      description: "Todoのアイテム"
+                      items:
+                        type: object
+                        required:
+                        - id
+                        - title
+                        - priority
+                        - done
+                        properties:
+                          id:
+                            type: string
+                            description: "TodoのID"
+                          title:
+                            type: string
+                            description: "Todoのタイトル"
+                          description:
+                            type: string
+                            description: "Todoの説明"
+                          priority:
+                            type: string
+                            description: "優先度"
+                          done:
+                            type: boolean
+                            description: "完了かどうか"
+                            default: false
 
 externalDocs:
   description: "Find out more about Swagger"
