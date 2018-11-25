@@ -69,6 +69,7 @@ paths:
                     type: boolean
                     description: "完了かどうか"
                     default: false
+  /todo/{id}:
     get:
       tags:
       - todo
