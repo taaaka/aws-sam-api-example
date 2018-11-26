@@ -1,58 +1,72 @@
+# for production
+
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Globals:
   Function:
     Timeout: 30
+
 Resources:
-  devPing:
+  # API GW
+  prdTodoApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: Todo API
+      StageName: prd
+      # https://github.com/awslabs/serverless-application-model/blob/master/examples/2016-10-31/implicit_api_settings/template.yaml
+      EndpointConfiguration: REGIONAL
+      # CORS使う場合
+      Cors:
+        AllowOrigin: "'https://cors.domain.jp/'"
+        AllowMethods: "'GET,POST,PUT,DELETE'"
+        AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+      DefinitionBody:
+        'Fn::Transform':
+          Name: 'AWS::Include'
+          Parameters:
+            Location: s3://any-bucket-name/swagger.yml
+
+  # Lambda
+  prdPing:
     Type: 'AWS::Serverless::Function'
     Properties:
       Runtime: nodejs8.10
-      CodeUri: ../../built/dev_main_get_ping
+      CodeUri: ../../built/prd_main_get_ping
       Handler: index.handler
       Policies: AmazonDynamoDBFullAccess
-      Environment:
-        Variables:
-          LOCAL_URL: $LOCAL_URL
-          REGION: $REGION
       Events:
         Vote:
           Type: Api
           Properties:
             Path: /ping
             Method: get
+            RestApiId: !Ref prdTodoApi
   # ex.) get todo
   getTodo:
     Type: 'AWS::Serverless::Function'
     Properties:
       Runtime: nodejs8.10
-      CodeUri: ../../built/dev_main_get_todo
+      CodeUri: ../../built/prd_main_get_todo
       Handler: index.handler
       Policies: AmazonDynamoDBFullAccess
-      Environment:
-        Variables:
-          LOCAL_URL: $LOCAL_URL
-          REGION: $REGION
       Events:
         Vote:
           Type: Api
           Properties:
             Path: /todo/{id}
             Method: get
+            RestApiId: !Ref prdTodoApi
   postTodo:
     Type: 'AWS::Serverless::Function'
     Properties:
       Runtime: nodejs8.10
-      CodeUri: ../../built/dev_main_post_todo
+      CodeUri: ../../built/prd_main_post_todo
       Handler: index.handler
       Policies: AmazonDynamoDBFullAccess
-      Environment:
-        Variables:
-          LOCAL_URL: $LOCAL_URL
-          REGION: $REGION
       Events:
         Vote:
           Type: Api
           Properties:
             Path: /todo
             Method: post
+            RestApiId: !Ref prdTodoApi
