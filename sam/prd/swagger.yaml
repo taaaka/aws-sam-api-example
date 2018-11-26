@@ -1,0 +1,126 @@
+openapi: 3.0.0
+info:
+  description: "Todo API Using AWS SAM"
+  version: "1.0.0"
+  title: "Todo API"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+- name: "todo"
+  description: "Todo関連"
+- name: "ping"
+  description: "ping"
+paths:
+  /todo:
+    post:
+      tags:
+      - "todo"
+      summary: "Todoの新規追加"
+      description: "Todoを新規追加するAPIです"
+      operationId: "postTodo"
+      requestBody:
+        description: ""
+        content:
+          'application/json':
+            schema:
+              type: object
+              required: 
+              - title
+              properties:
+                title:
+                  type: string
+                  description: "Todoのタイトル"
+                description:
+                  type: string
+                  description: "Todoの説明"
+                priority:
+                  description: "優先度"
+                  type: number
+                  default: 3
+                  minimum: 1
+                  maximum: 5
+      responses:
+        default:
+          description: 'Response'
+          content:
+            'application/json':
+              schema:
+                type: object
+                required:
+                - id
+                - title
+                - priority
+                - done
+                properties:
+                  id:
+                    type: string
+                    description: "TodoのID"
+                  title:
+                    type: string
+                    description: "Todoのタイトル"
+                  description:
+                    type: string
+                    description: "Todoの説明"
+                  priority:
+                    type: string
+                    description: "優先度"
+                  done:
+                    type: boolean
+                    description: "完了かどうか"
+                    default: false
+  '/todo/{id}':
+    get:
+      tags:
+      - todo
+      summary: "Todoの取得"
+      description: "Todoを取得するAPIです"
+      operationId: "getTodo"
+      parameters: 
+      - in: path
+        name: id
+        description: "TodoのID"
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+            description: 'Response'
+            content:
+              'application/json':
+                schema:
+                  type: object
+                  required:
+                  - items
+                  properties:
+                    items:
+                      type: array
+                      description: "Todoのアイテム"
+                      items:
+                        type: object
+                        required:
+                        - id
+                        - title
+                        - priority
+                        - done
+                        properties:
+                          id:
+                            type: string
+                            description: "TodoのID"
+                          title:
+                            type: string
+                            description: "Todoのタイトル"
+                          description:
+                            type: string
+                            description: "Todoの説明"
+                          priority:
+                            type: string
+                            description: "優先度"
+                          done:
+                            type: boolean
+                            description: "完了かどうか"
+                            default: false
+
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

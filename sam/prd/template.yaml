@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Globals:
+  Function:
+    Timeout: 30
+Resources:
+  devPing:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Runtime: nodejs8.10
+      CodeUri: ../../built/dev_main_get_ping
+      Handler: index.handler
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          LOCAL_URL: $LOCAL_URL
+          REGION: $REGION
+      Events:
+        Vote:
+          Type: Api
+          Properties:
+            Path: /ping
+            Method: get
+  # ex.) get todo
+  getTodo:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Runtime: nodejs8.10
+      CodeUri: ../../built/dev_main_get_todo
+      Handler: index.handler
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          LOCAL_URL: $LOCAL_URL
+          REGION: $REGION
+      Events:
+        Vote:
+          Type: Api
+          Properties:
+            Path: /todo/{id}
+            Method: get
+  postTodo:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Runtime: nodejs8.10
+      CodeUri: ../../built/dev_main_post_todo
+      Handler: index.handler
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          LOCAL_URL: $LOCAL_URL
+          REGION: $REGION
+      Events:
+        Vote:
+          Type: Api
+          Properties:
+            Path: /todo
+            Method: post
