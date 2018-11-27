@@ -69,6 +69,15 @@ paths:
                     type: boolean
                     description: "完了かどうか"
                     default: false
+    x-amazon-apigateway-integration:
+      type: aws_proxy
+      httpMethod: Post
+      responses:
+        '200':
+          statusCode: '200'
+        '500':
+          statusCode: '500'
+
   '/todo/{id}':
     get:
       tags:
@@ -120,6 +129,14 @@ paths:
                             type: boolean
                             description: "完了かどうか"
                             default: false
+    x-amazon-apigateway-integration:
+      type: aws_proxy
+      httpMethod: Post
+      responses:
+        '200':
+          statusCode: '200'
+        '500':
+          statusCode: '500'
 
 externalDocs:
   description: "Find out more about Swagger"
