@@ -41,7 +41,7 @@ paths:
                   minimum: 1
                   maximum: 5
       responses:
-        default:
+        200:
           description: 'Response'
           content:
             'application/json':
@@ -84,7 +84,7 @@ paths:
         schema:
           type: string
       responses:
-        default:
+        200:
             description: 'Response'
             content:
               'application/json':
