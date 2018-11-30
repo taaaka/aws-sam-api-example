@@ -24,7 +24,7 @@ Resources:
         'Fn::Transform':
           Name: 'AWS::Include'
           Parameters:
-            Location: s3://any-bucket-name/swagger.yml
+            Location: s3://sam-cfn-upload/swagger.yml
 
   # Lambda
   prdPing:
