@@ -9,7 +9,7 @@
 npm install
 
 # setup local dynamodb (Docker required.)
-npm setup
+npm run setup
 
 # launch API by aws-sam-cli
 npm start
